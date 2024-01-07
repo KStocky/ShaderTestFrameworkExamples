@@ -62,7 +62,7 @@ include(FetchContent)
 FetchContent_Declare(
         stf
         GIT_REPOSITORY https://github.com/KStocky/ShaderTestFramework
-        GIT_TAG FetchContentAndDocs
+        GIT_TAG main
     )
 
 FetchContent_MakeAvailable(stf)
