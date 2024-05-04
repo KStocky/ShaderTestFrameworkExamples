@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.25)
 
 project(
     ShaderTestingFrameworkExamples 
@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 23)
 
 # Set the target name
-set(TARGET_NAME Catch2Example)
+set(TARGET_NAME Catch2ExampleTests)
 
 # SHADER_SOURCES contains the relative paths to shader files
 # We use this list to add the files to the visual studio solution

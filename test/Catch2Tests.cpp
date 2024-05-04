@@ -1,21 +1,9 @@
-#include <D3D12/Shader/ShaderEnums.h>
+
 #include <Framework/ShaderTestFixture.h>
 
 static VirtualShaderDirectoryMapping GetTestVirtualDirectoryMapping()
 {
     return VirtualShaderDirectoryMapping{ "/MyTests", fs::current_path() / "shader" };
-}
-
-static ShaderTestFixture::Desc CreateDescForHLSLFrameworkTest(fs::path&& InPath, STF::AssertBufferLayout InAssertParams = {10, 1024})
-{
-    ShaderTestFixture::Desc desc{};
-
-    desc.Mappings.emplace_back(GetTestVirtualDirectoryMapping());
-    desc.HLSLVersion = EHLSLVersion::v2021;
-    desc.Source = std::move(InPath);
-    desc.GPUDeviceParams.DeviceType = GPUDevice::EDeviceType::Software;
-    desc.AssertInfo = InAssertParams;
-    return desc;
 }
 
 #include <string>
@@ -36,7 +24,12 @@ SCENARIO("BasicShaderTests")
             }
         )
     );
-    ShaderTestFixture fixture(CreateDescForHLSLFrameworkTest(fs::path("/MyTests/ShaderTest.hlsl")));
+    ShaderTestFixture::Desc desc;
+    desc.Mappings.emplace_back(GetTestVirtualDirectoryMapping());
+    desc.Source = fs::path("/MyTests/ShaderTest.hlsl"); 
+
+    ShaderTestFixture fixture(std::move(desc));
+
     DYNAMIC_SECTION(testName)
     {
         if (shouldSucceed)
