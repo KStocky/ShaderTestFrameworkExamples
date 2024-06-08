@@ -38,5 +38,5 @@ jobs:
 
 run-name: >-
   ${{ ( github.event_name == 'push' && format('{0}: {1}', github.actor, github.event.head_commit.message) ) || 
-      ( github.event_name == 'workflow_dispatch' && format('{0}: Dispatched from {1} with message: {1}', github.event.inputs.actor, github.event.inputs.repository, github.event.inputs.message) )}}
+      ( github.event_name == 'workflow_dispatch' && format('{0}: Dispatched from {1} with message: {2}', github.event.inputs.actor, github.event.inputs.repository, github.event.inputs.message) )}}
             
