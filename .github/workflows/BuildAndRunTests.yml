@@ -1,6 +1,14 @@
 name: Build-And-Run-Tests
-run-name: "${{github.actor}}: ${{github.event.head_commit.message || format('Dispatched from: {0} with ref: {1}', github.event.repository, github.event.ref)}}"
-on: [push, workflow_dispatch]
+
+on: 
+  push:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message to display as part of the run name'
+        required: true
+        type: string
+
 jobs:
     Build-And-Test:
         runs-on: windows-latest
@@ -17,4 +25,6 @@ jobs:
 
             - name: Test
               run: ctest --test-dir build -C Debug --output-on-failure
+
+run-name: "${{github.actor}}: ${{github.event.head_commit.message || format('Dispatched from {0} with message: {1}', github.event.repository.name, github.event.inputs.message)}}"
             
