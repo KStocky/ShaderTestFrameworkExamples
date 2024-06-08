@@ -1,5 +1,5 @@
 name: Build-And-Run-Tests
-run-name: "${{github.actor}}: ${{github.event.head_commit.message}}"
+run-name: "${{github.actor}}: ${{github.event.head_commit.message || format('Dispatched from: {0} with ref: {1}', github.event.repository, github.event.ref)}}"
 on: [push, workflow_dispatch]
 jobs:
     Build-And-Test:
