@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
     inputs:
-      user:
+      actor:
         description: 'The actor that kicked off the workflow'
         required: true
         type: string
@@ -13,7 +13,7 @@ on:
         description: 'The name of the source repository'
         required: true
         type: string
-        
+
       message:
         description: 'Message to display as part of the run name'
         required: true
@@ -38,5 +38,5 @@ jobs:
 
 run-name: >-
   ${{ ( github.event_name == 'push' && format('{0}: {1}', github.actor, github.event.head_commit.message) ) || 
-      ( github.event_name == 'workflow_dispatch' && format('{0}: Dispatched from {1} with message: {1}', github.event.inputs.user, github.event.inputs.repository, github.event.inputs.message) )}}
+      ( github.event_name == 'workflow_dispatch' && format('{0}: Dispatched from {1} with message: {1}', github.event.inputs.actor, github.event.inputs.repository, github.event.inputs.message) )}}
             
