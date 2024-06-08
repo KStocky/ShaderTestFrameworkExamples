@@ -1,9 +1,19 @@
-name: Build-And-Run-Tests
+name: Build And Run Tests
 
 on: 
   push:
   workflow_dispatch:
     inputs:
+      user:
+        description: 'The actor that kicked off the workflow'
+        required: true
+        type: string
+      
+      repository:
+        description: 'The name of the source repository'
+        required: true
+        type: string
+        
       message:
         description: 'Message to display as part of the run name'
         required: true
@@ -26,5 +36,7 @@ jobs:
             - name: Test
               run: ctest --test-dir build -C Debug --output-on-failure
 
-run-name: "${{github.actor}}: ${{github.event.head_commit.message || format('Dispatched from {0} with message: {1}', github.event.repository.name, github.event.inputs.message)}}"
+run-name: >-
+  ${{ ( github.event_name == 'push' && format('{0}: {1}', github.actor, github.event.head_commit.message) ) || 
+      ( github.event_name == 'workflow_dispatch' && format('{0}: Dispatched from {1} with message: {1}', github.event.inputs.user, github.event.inputs.repository, github.event.inputs.message) )}}
             
