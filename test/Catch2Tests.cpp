@@ -24,21 +24,35 @@ SCENARIO("BasicShaderTests")
             }
         )
     );
-    ShaderTestFixture::Desc desc;
-    desc.Mappings.emplace_back(GetTestVirtualDirectoryMapping());
-    desc.Source = fs::path("/MyTests/ShaderTest.hlsl"); 
 
-    ShaderTestFixture fixture(std::move(desc));
+    ShaderTestFixture fixture(
+        ShaderTestFixture::FixtureDesc
+        {
+            .Mappings{ GetTestVirtualDirectoryMapping() }
+        }
+    );
 
     DYNAMIC_SECTION(testName)
     {
+        const auto result = fixture.RunTest(
+            ShaderTestFixture::RuntimeTestDesc
+            {
+                .CompilationEnv
+                {
+                    .Source = fs::path("/MyTests/ShaderTest.hlsl")
+                },
+                .TestName = testName,
+                .ThreadGroupCount{1,1,1}
+            }
+        );
+
         if (shouldSucceed)
         {
-            REQUIRE(fixture.RunTest(testName, 1, 1, 1));
+            REQUIRE(result);
         }
         else
         {
-            const auto result = fixture.RunTest(testName, 1, 1, 1);
+            
             REQUIRE_FALSE(result);
         }
         
