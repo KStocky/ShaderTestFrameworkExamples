@@ -10,13 +10,6 @@
       "name": "Ninja",
       "binaryDir": "build",
       "generator": "Ninja Multi-Config",
-      "cacheVariables": {
-        "CMAKE_UNITY_BUILD": true,
-        "STF_ENABLE_TESTING": true,
-        "STF_INCLUDE_EXAMPLES": true,
-        "STF_DISABLE_UNITY_STF": false,
-        "STF_STRICT_COMPILATION": true
-      },
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -25,14 +18,7 @@
     {
       "name": "VS2022",
       "binaryDir": "build",
-      "generator": "Visual Studio 17 2022",
-      "cacheVariables": {
-        "CMAKE_UNITY_BUILD": true,
-        "STF_ENABLE_TESTING": true,
-        "STF_INCLUDE_EXAMPLES": true,
-        "STF_DISABLE_UNITY_STF": true,
-        "STF_STRICT_COMPILATION": true
-      }
+      "generator": "Visual Studio 17 2022"
     }
   ],
   "buildPresets": [
