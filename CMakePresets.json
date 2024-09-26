@@ -1,0 +1,130 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 26,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "Ninja",
+      "binaryDir": "build",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CMAKE_UNITY_BUILD": true,
+        "STF_ENABLE_TESTING": true,
+        "STF_INCLUDE_EXAMPLES": true,
+        "STF_DISABLE_UNITY_STF": false,
+        "STF_STRICT_COMPILATION": true
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "VS2022",
+      "binaryDir": "build",
+      "generator": "Visual Studio 17 2022",
+      "cacheVariables": {
+        "CMAKE_UNITY_BUILD": true,
+        "STF_ENABLE_TESTING": true,
+        "STF_INCLUDE_EXAMPLES": true,
+        "STF_DISABLE_UNITY_STF": true,
+        "STF_STRICT_COMPILATION": true
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Ninja",
+      "configurePreset": "Ninja",
+      "configuration": "Debug"
+    },
+    {
+      "name": "VS2022",
+      "configurePreset": "VS2022",
+      "configuration": "Debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "Ninja",
+      "configurePreset": "Ninja",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "VS2022",
+      "configurePreset": "VS2022",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "NinjaBuild",
+      "steps": [
+        {
+          "name": "Ninja",
+          "type": "configure"
+        },
+        {
+          "name": "Ninja",
+          "type": "build"
+        }
+      ]
+    },
+    {
+      "name": "VS2022Build",
+      "steps": [
+        {
+          "name": "VS2022",
+          "type": "configure"
+        },
+        {
+          "name": "VS2022",
+          "type": "build"
+        }
+      ]
+    },
+    {
+      "name": "NinjaBuildAndTest",
+      "steps": [
+        {
+          "name": "Ninja",
+          "type": "configure"
+        },
+        {
+          "name": "Ninja",
+          "type": "build"
+        },
+        {
+          "name": "Ninja",
+          "type": "test"
+        }
+      ]
+    },
+    {
+      "name": "VS2022BuildAndTest",
+      "steps": [
+        {
+          "name": "VS2022",
+          "type": "configure"
+        },
+        {
+          "name": "VS2022",
+          "type": "build"
+        },
+        {
+          "name": "VS2022",
+          "type": "test"
+        }
+      ]
+    }
+  ]
+}

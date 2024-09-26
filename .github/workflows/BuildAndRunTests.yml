@@ -27,14 +27,14 @@ jobs:
             - name: Checkout the repo
               uses: actions/checkout@v4
 
-            - name: Setup CMake
-              uses: threeal/cmake-action@v1.3.0
+            - name: Install Ninja
+              uses: seanmiddleditch/gha-setup-ninja@master
 
-            - name: Build the project
-              run: cmake --build build
+            - name: setup devcmd
+              uses: ilammy/msvc-dev-cmd@v1.13.0
 
-            - name: Test
-              run: ctest --test-dir build -C Debug --output-on-failure
+            - name: Build everything and run all Tests"
+              run: cmake --workflow --preset NinjaBuildAndTest
 
 run-name: >-
   ${{ ( github.event_name == 'push' && format('{0}: {1}', github.actor, github.event.head_commit.message) ) || 
