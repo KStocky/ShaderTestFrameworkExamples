@@ -1,9 +1,9 @@
 
 #include <Framework/ShaderTestFixture.h>
 
-static VirtualShaderDirectoryMapping GetTestVirtualDirectoryMapping()
+static stf::VirtualShaderDirectoryMapping GetTestVirtualDirectoryMapping()
 {
-    return VirtualShaderDirectoryMapping{ "/MyTests", fs::current_path() / "shader" };
+    return stf::VirtualShaderDirectoryMapping{ "/MyTests", std::filesystem::current_path() / "shader" };
 }
 
 #include <string>
@@ -25,8 +25,8 @@ SCENARIO("BasicShaderTests")
         )
     );
 
-    ShaderTestFixture fixture(
-        ShaderTestFixture::FixtureDesc
+    stf::ShaderTestFixture fixture(
+        stf::ShaderTestFixture::FixtureDesc
         {
             .Mappings{ GetTestVirtualDirectoryMapping() }
         }
@@ -35,11 +35,11 @@ SCENARIO("BasicShaderTests")
     DYNAMIC_SECTION(testName)
     {
         const auto result = fixture.RunTest(
-            ShaderTestFixture::RuntimeTestDesc
+            stf::ShaderTestFixture::RuntimeTestDesc
             {
                 .CompilationEnv
                 {
-                    .Source = fs::path("/MyTests/ShaderTest.hlsl")
+                    .Source = std::filesystem::path("/MyTests/ShaderTest.hlsl")
                 },
                 .TestName = testName,
                 .ThreadGroupCount{1,1,1}
